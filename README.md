@@ -28,7 +28,7 @@ placing your custom profiles in `$HOME/.jbackup/`
 ## Behavior
 
 jbackup must be run as root. jbackup will abort executing your profile if
-either `rsync`, `pre\_command`, or `post\_command` return a non-zero value. 
+either `rsync`, `pre_command`, or `post_command` return a non-zero value.
 
 I recommend using `set -e` in your post/post commands so jbackup aborts when an
 error is encountered.
