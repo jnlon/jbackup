@@ -36,7 +36,7 @@ error is encountered.
 ## Motivation
 
 jbackup is useful when rsync runs need an initial setup and teardown process,
-for example mounting and umounting drives. jbackup was created to centralize a
+for example mounting and unmounting drives. jbackup was created to centralize a
 number of standalone scripts I had accumulated that executed nearly the same
 commands but with slightly different arguments. With jbackup this functionality
 now exists in simple standardized profile modules.
