@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# Usage: jbackup path/to/profile.sh
+#
+# This script must be run as root
+#
+# jbackup profile.sh format:
+# 
+# Functions:
+#   pre_command
+#   post_command
+#
+# Variables:
+#   RSYNC_SRC
+#   RSYNC_DEST
+#   RSYNC_OPTIONS
+
+# Helpers
+die() { echo "error: $1" ; exit 1 ; }
+die_undefined() { die "'$1' not found in $PROFILE" ; }
+
+# Verify I am root
+[ ! "$(id -u)" = 0 ] && die "jbackup always requires root"
+
+# Verify profile exists
+PROFILE="$1"
+[ -f "$PROFILE" ] || die "profile $1 does not exist"
+
+# Source the profile
+. $PROFILE
+
+# Check vars/commands are defined
+[ -n "$RSYNC_DEST" ]    || die_undefined "RSYNC_DEST"
+[ -n "$RSYNC_SRC" ]     || die_undefined "RSYNC_SRC"
+[ -n "$RSYNC_OPTIONS" ] || echo "Warning: RSYNC_OPTIONS empty or not set"
+type pre_command >/dev/null  || die_undefined "pre_command"
+type post_command >/dev/null || die_undefined "post_command"
+
+# Execute 
+echo ":: Running pre_command..."
+pre_command || die "pre_command fail"
+
+echo ":: Running rsync..."
+echo " => rsync $RSYNC_OPTIONS $RSYNC_SRC $RSYNC_DEST"
+rsync $RSYNC_OPTIONS $RSYNC_SRC $RSYNC_DEST
+
+echo ":: Running post_command..."
+post_command || die "post_command fail"

@@ -1,0 +1,13 @@
+# Variables
+RSYNC_SRC="$HOME/Documents/books/_reading/"
+RSYNC_DEST="/mnt/kindle/documents/"
+RSYNC_OPTIONS="-vrL --progress"
+
+# Run before/after rsync executes
+pre_command() {
+  mount /mnt/kindle
+}
+
+post_command() {
+  umount /mnt/kindle
+}

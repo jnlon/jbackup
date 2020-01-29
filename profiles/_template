@@ -1,0 +1,8 @@
+# Variables
+#RSYNC_SRC="..."
+#RSYNC_DEST="..."
+#RSYNC_OPTIONS="-avRxm --dry-run --safe-links --delete --progress"
+
+# Run before/after rsync executes
+#pre_command() { mount /mnt/backup }
+#post_command() { umount /mnt/backup }

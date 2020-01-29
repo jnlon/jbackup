@@ -1,0 +1,26 @@
+# Variables
+RSYNC_SRC="/opt /var /home /etc /media/media /media/archive"
+RSYNC_DEST="/media/innostor/rsync/"
+RSYNC_OPTIONS="-rlptgoRxm -v --safe-links --delete-before --delete-excluded"
+
+# Run before/after rsync executes
+pre_command() {
+  set -x
+  # Mount necessary drives
+  mount /media/media
+  mount /media/archive
+  mount /media/innostor
+  mkdir -p /media/innostor/rsync
+  # Verify all mounts established
+  set -e
+  mountpoint /media/media
+  mountpoint /media/archive
+  mountpoint /media/innostor
+  [ -d /media/innostor/rsync ]
+  set +ex
+}
+
+post_command() {
+  umount /media/innostor/
+  umount /media/archive/
+}

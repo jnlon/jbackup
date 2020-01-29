@@ -1,0 +1,17 @@
+# Variables
+RSYNC_SRC="Pictures/Screenshots DCIM"
+RSYNC_DEST="$HOME/media/pics/phone"
+RSYNC_OPTIONS="-avxm --progress"
+
+# Run before/after rsync executes
+pre_command() {
+  jmtpfs /media/6p &
+  sleep 1 &&
+  mountpoint /media/6p &&
+  cd "/media/6p/Internal shared storage/"
+}
+
+post_command() {
+  cd - &&
+  fusermount -u /media/6p/
+}

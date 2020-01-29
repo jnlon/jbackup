@@ -1,0 +1,15 @@
+# Variables
+RSYNC_SRC="/var/www /home /etc"
+RSYNC_DEST="/mnt/backup/rsync/"
+RSYNC_OPTIONS="-avRxm --safe-links --delete --progress"
+
+# Run before/after rsync executes
+pre_command() {
+  sudo cryptdisks_start hdd_1 &&
+  sudo mount /mnt/backup &&
+  mkdir -p /mnt/backup/rsync
+}
+
+post_command() {
+  sudo umount /mnt/backup
+}
