@@ -22,8 +22,8 @@ post_command() {
 }
 ```
 
-See [profiles/](profiles/)` in this repo for
-profile examples. I recommend placing your custom profiles in `$HOME/.jbackup/`
+See [profiles/](profiles/) in this repo for profile examples. I recommend
+placing your custom profiles in `$HOME/.jbackup/`
 
 ## Behavior
 
